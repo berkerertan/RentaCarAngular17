@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { HomepageComponent } from './pages/homepage/homepage.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AuthenticationService } from './services/authentication.service';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,22 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'BootcampAngular';
+  constructor(private authService: AuthenticationService) {}
+
+  ngOnInit(): void {
+    // Uygulama başlatıldığında oturum açma işlemini başlat
+    this.authService.login()
+      .pipe(
+        tap(() => {
+          console.log('Oturum açma başarılı!');
+        }),
+        catchError(error => {
+          console.error('Oturum açma hatası:', error);
+          return of(null); // Hata durumunda Observable'ı tamamla
+        })
+      )
+      .subscribe();
+  }
 }

@@ -1,24 +1,22 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { GetlistBlacklistResponse } from '../../models/responses/blacklist/getlist-blacklist-response';
 import { GetlistBootcampStateResponse } from '../../models/responses/bootcampState/getlist-bootcamp-state-response';
 import { GetlistBootcampResponse } from '../../models/responses/bootcamp/getlist-bootcamp-response';
-//import { TodoResponse } from '../../models/todo-response';
-//import { ModelListResponse } from '../../models/responses/model-list-response';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
   imports: [RouterModule,CommonModule,HttpClientModule],
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.scss'
+  styleUrls:[ './homepage.component.scss']
 })
 export class HomepageComponent implements OnInit{
 
+  private apiUrl1 = "http://localhost:60805/api/Bootcamps"; 
+  private apiUrl2 = "http://localhost:60805/api/BootcampStates"; 
   bootcampList:GetlistBootcampResponse[] = [];
   bootcampState:GetlistBootcampStateResponse[] = [];
   
@@ -26,12 +24,10 @@ export class HomepageComponent implements OnInit{
 
   ngOnInit(): void {
     this.getListBootcamp();
-  }
-  ngOnInit1(): void {
     this.getListBootcampState();
   }
  getListBootcamp(){
-    this.httpClient.get<DataResult<GetlistBootcampResponse[]>>("http://localhost:5278/api/Bootcamps")
+    this.httpClient.get<DataResult<GetlistBootcampResponse[]>>(this.apiUrl1)
     .subscribe({
       next:(response:DataResult<GetlistBootcampResponse[]>)=>{
         console.log("Cevap geldi :",response);
@@ -42,7 +38,7 @@ export class HomepageComponent implements OnInit{
     })
   }
   getListBootcampState(){
-    this.httpClient.get<GetlistBootcampStateResponse[]>("http://localhost:5278/api/BootcampStates")
+    this.httpClient.get<GetlistBootcampStateResponse[]>(this.apiUrl2)
     .subscribe({
       next:(response:GetlistBootcampStateResponse[])=>{
         console.log("Cevap geldi :",response);
@@ -58,5 +54,3 @@ export class HomepageComponent implements OnInit{
     success:boolean;
     message:string;
 }
-
-
