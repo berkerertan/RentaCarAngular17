@@ -5,11 +5,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AuthenticationService } from './services/authentication.service';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth-service.service';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,SidebarComponent],
+  imports: [RouterOutlet,NavbarComponent,SidebarComponent,HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -26,9 +29,11 @@ export class AppComponent implements OnInit {
         }),
         catchError(error => {
           console.error('Oturum açma hatası:', error);
-          return of(null); // Hata durumunda Observable'ı tamamla
+          return of(null); 
         })
       )
       .subscribe();
+
+  
   }
 }

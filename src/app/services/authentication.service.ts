@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticationService {
   private readonly apiUrl = 'http://localhost:60805/api';
@@ -22,7 +22,7 @@ export class AuthenticationService {
         this.token = response.token;
       })
     );
-  }
+  } 
 
   getToken(): string | null {
     return this.token;
