@@ -1,18 +1,16 @@
 import { Component,OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { AuthenticationService } from './services/authentication.service';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { AuthenticationService } from './features/services/authentication.service';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AuthService } from './services/auth-service.service';
-import { NgModel } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,SidebarComponent,HttpClientModule],
+  imports: [RouterOutlet,NavbarComponent,HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

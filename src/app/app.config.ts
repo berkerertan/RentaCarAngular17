@@ -6,3 +6,4 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes)]
 };
+export const API_URL = 'http://localhost:60805/api';
