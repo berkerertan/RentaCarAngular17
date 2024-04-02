@@ -17,4 +17,5 @@ export abstract class BootcampStateBaseService {
   abstract delete(id: string): Observable<DeleteBootcampStateResponse>;
   abstract update(applicant: UpdateBootcampStateRequest): Observable<UpdateBootcampStateResponse>;
   abstract create(applicant: CreateBootcampStateRequest): Observable<CreateBootcampStateResponse>;
+  abstract getListByInstructorId(instructorId:string):Observable<GetlistBootcampStateResponse[]>;
 }

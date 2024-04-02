@@ -1,26 +1,10 @@
-<div class="col-md-8 py-8">
-  <table class="table table-bordered">
-      <thead >
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>FirstName</th>
-          <th>LastName</th>
-          <th>BootcampState</th>
-          <th>Created Date</th>
-          <th>End Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let bootcamp of bootcampList">
-          <td>1</td>
-          <td>{{ bootcamp.name}}</td>
-          <td>{{ bootcamp.bootcampstate}}</td>
-          <td>{{ bootcamp.instructorFirstName}}</td>
-          <td>{{ bootcamp.instructorFirstName}}</td>
-          <td>{{ bootcamp.startDate| date: 'dd/MM/yyyy'}}</td>
-          <td>{{ bootcamp.endDate| date: 'dd/MM/yyyy'}}</td>
-        </tr>
-      </tbody>
-    </table>       
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <app-bootcamp-list-group></app-bootcamp-list-group>
+      </div>
+      <div class="col-md-9">
+     <router-outlet></router-outlet>
+      </div>
+  </div>
 </div>
