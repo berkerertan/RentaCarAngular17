@@ -4,12 +4,13 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,NavbarComponent,HttpClientModule],
+  imports: [RouterOutlet,NavbarComponent,HttpClientModule,SharedModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

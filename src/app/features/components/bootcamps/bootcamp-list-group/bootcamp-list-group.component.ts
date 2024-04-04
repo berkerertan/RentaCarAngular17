@@ -31,8 +31,8 @@ export class BootcampListGroupComponent implements OnInit {
   readonly PAGE_SIZE = 6;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      if (params["modelId"]) {
-        this.getBootcampListByInstructor({ page: 0, pageSize: this.PAGE_SIZE }, params["modelId"])
+      if (params["instructorId"]) {
+        this.getBootcampListByInstructor({ page: 0, pageSize: this.PAGE_SIZE }, params["instructorId"])
       } else { this.getList({ page: 0, pageSize: this.PAGE_SIZE }) }
     })
 

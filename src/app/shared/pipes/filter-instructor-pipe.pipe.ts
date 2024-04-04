@@ -1,10 +1,8 @@
-//import { GetModelListResponse } from './../../features/models/responses/get-model-list-response';
 import { Pipe, PipeTransform } from "@angular/core";
-
 import { GetlistInstructorResponse } from "../../features/models/responses/instructor/getlist-instructor-response";
 
 @Pipe({
-    name:'filterPipe'
+    name:'filterInstructorPipe'
 })
 export class FilterInstructorPipe implements PipeTransform{
 
