@@ -9,7 +9,7 @@ import { UpdateBootcampStateRequest } from '../../models/requests/bootcampState/
 import { UpdateBootcampStateResponse } from '../../models/responses/bootcampState/update-bootcamp-state-response';
 import { CreateBootcampStateRequest } from '../../models/requests/bootcampState/create-bootcamp-state-request';
 import { CreateBootcampStateResponse } from '../../models/responses/bootcampState/create-bootcamp-state-response';
-import { environment } from '../../../../environments/enviroment.development';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,5 @@ export class BootcampStateService extends BootcampStateBaseService {
     return this.http.post<CreateBootcampStateResponse>('API_URL/create', applicant);
   }
 
-  override getListByInstructorId(instructorId: string): Observable<GetlistBootcampStateResponse[]> {
-    return this.http.get<GetlistBootcampStateResponse[]>(`${this.apiUrl}/`+instructorId);
-  }
+  
 }

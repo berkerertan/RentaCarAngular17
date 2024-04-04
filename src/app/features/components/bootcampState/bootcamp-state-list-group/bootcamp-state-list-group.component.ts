@@ -10,38 +10,38 @@ import { BootcampListItemDto } from '../../../models/responses/bootcamp/bootcamp
   templateUrl: './bootcamp-state-list-group.component.html',
   styleUrl: './bootcamp-state-list-group.component.scss'
 })
-export class BootcampStateListGroupComponent implements OnInit {
-  bootcampStates!: GetlistBootcampStateResponse[];
-  filterText = "";
-  currentBootcampState!: GetlistBootcampStateResponse;
+export class BootcampStateListGroupComponent  {
+//   bootcampStates!: GetlistBootcampStateResponse[];
+//   filterText = "";
+//   currentBootcampState!: GetlistBootcampStateResponse;
 
-  constructor(private bootcampStateService: BootcampStateService) { }
+//   constructor(private bootcampStateService: BootcampStateService) { }
 
-  ngOnInit(): void { }
+//   ngOnInit(): void { }
 
-  onBrandAdded(brandId: string): void {
-    if (brandId) {
-      this.bootcampStateService.getListByInstructorId(brandId).subscribe(bootcampStates => {
-        this.bootcampStates = bootcampStates;
-      });
-    }
-  }
+//   onBrandAdded(brandId: string): void {
+//     if (brandId) {
+//       this.bootcampStateService.getListByInstructorId(brandId).subscribe(bootcampStates => {
+//         this.bootcampStates = bootcampStates;
+//       });
+//     }
+//   }
+// //npm install @auth0/angular-jwt***********************************************
+//   getBootcampStates(instructorId: string): void {
+//     this.bootcampStateService.(instructorId).subscribe((response:any[]) => {
+//       this.bootcampStates = response;
+//     });
+//   }
 
-  getBootcampStates(instructorId: string): void {
-    this.bootcampStateService.(instructorId).subscribe((response:any[]) => {
-      this.bootcampStates = response;
-    });
-  }
+//   setCurrentBootcampState(bootcampState: GetlistBootcampStateResponse): void {
+//     this.currentBootcampState = bootcampState;
+//   }
 
-  setCurrentBootcampState(bootcampState: GetlistBootcampStateResponse): void {
-    this.currentBootcampState = bootcampState;
-  }
+//   getCurrentBootcampStateClass(bootcampState: GetlistBootcampStateResponse): string {
+//     return bootcampState === this.currentBootcampState ? "list-group-item active" : "list-group-item";
+//   }
 
-  getCurrentBootcampStateClass(bootcampState: GetlistBootcampStateResponse): string {
-    return bootcampState === this.currentBootcampState ? "list-group-item active" : "list-group-item";
-  }
-
-  getDefaultBootcampStateClass(): string {
-    return !this.currentBootcampState ? "list-group-item list-group-item-info" : instructorId+`/institutions/createst-group-item";
-  }
+//   getDefaultBootcampStateClass(): string {
+//     return !this.currentBootcampState ? "list-group-item list-group-item-info" : instructorId + "/institutions/createst-group-item";
+//   }
 }

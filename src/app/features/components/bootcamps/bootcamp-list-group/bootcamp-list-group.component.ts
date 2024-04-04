@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SharedModule } from '../../../../shared/shared.module';
 import { GetlistBootcampResponse } from '../../../models/responses/bootcamp/getlist-bootcamp-response';
 import { BootcampService } from '../../../services/concretes/bootcamp.service';
+import { PageRequest } from '../../../../core/models/page-request';
+import { BootcampListItemDto } from '../../../models/responses/bootcamp/bootcamp-list-item-dto';
 
 @Component({
   selector: 'app-bootcamp-list-group',
@@ -14,49 +16,61 @@ import { BootcampService } from '../../../services/concretes/bootcamp.service';
   styleUrl: './bootcamp-list-group.component.scss'
 })
 export class BootcampListGroupComponent implements OnInit {
-  @Input() selectedBootcampId!: string; // seçilen bootcamp'ın kimliği
-  @Output() bootcampSelected = new EventEmitter<string>(); // bootcamp'lar yüklendiğinde olay yayınlayıcı
-  bootcamps!: GetlistBootcampResponse[];
-  currentBootcamp!: GetlistBootcampResponse;
-  filterText = "";
 
-  constructor(private bootcampService: BootcampService) { }
-
+  currentPageNumber!: number;
+  bootcampList: BootcampListItemDto = {
+    index: 0,
+    size: 0,
+    count: 0,
+    hasNext: false,
+    hasPrevious: false,
+    pages: 0,
+    items: []
+  };
+  constructor(private bootcampService: BootcampService, private activatedRoute: ActivatedRoute) { }
+  readonly PAGE_SIZE = 6;
   ngOnInit(): void {
-    this.getBootcamps();
-    console.log(this.bootcampSelected)
+    this.activatedRoute.params.subscribe(params => {
+      if (params["modelId"]) {
+        this.getBootcampListByInstructor({ page: 0, pageSize: this.PAGE_SIZE }, params["modelId"])
+      } else { this.getList({ page: 0, pageSize: this.PAGE_SIZE }) }
+    })
+
   }
 
-  onSelectedBootcamp(bootcampId: string): void {
-    this.selectedBootcampId = bootcampId;
-    this.bootcampSelected.emit(this.selectedBootcampId);
+
+  getList(pageRequest: PageRequest) {
+    this.bootcampService.getList(pageRequest).subscribe((response) => {
+      this.bootcampList = response;
+      this.updateCurrentPageNumber();
+    })
+
   }
 
-  getBootcamps() {
-    this.bootcampService.getList().subscribe((response) => {
-      this.bootcamps = response;
+  getBootcampListByInstructor(pageRequest: PageRequest, instructorId: string) {
+    this.bootcampService.getListBootcampByInstructorId(pageRequest, instructorId).subscribe((response) => {
+      this.bootcampList = response;
+      this.updateCurrentPageNumber();
     })
   }
 
-  setCurrentBootcamp(bootcamp: GetlistBootcampResponse) {
-    this.currentBootcamp = bootcamp;
+  onViewMoreClicked(): void {
+    const nextPageIndex = this.bootcampList.index + 1;
+    const pageSize = this.bootcampList.size;
+
+    this.getList({ page: nextPageIndex, pageSize })
+    this.updateCurrentPageNumber();
   }
 
-  getCurrentBootcampClass(bootcamp: GetlistBootcampResponse) {
-    if (bootcamp == this.currentBootcamp) {
-      return "list-group-item active"
-    } else {
-      return "list-group-item"
-    }
+  onPreviousPageClicked(): void {
+    const previousPageIndex = this.bootcampList.index - 1;
+    const pageSize = this.bootcampList.size;
+    this.getList({ page: previousPageIndex, pageSize });
+    this.updateCurrentPageNumber();
   }
 
-  getDefaultBootcampClass() {
-    if (!this.currentBootcamp) {
-      return "list-group-item list-group-item-info"
-    } else {
-      return "list-group-item"
-    }
+  updateCurrentPageNumber(): void {
+    this.currentPageNumber = this.bootcampList.index + 1;
   }
-}
 
 }

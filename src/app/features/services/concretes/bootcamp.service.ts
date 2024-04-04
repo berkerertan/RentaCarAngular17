@@ -10,7 +10,8 @@ import { CreateBootcampRequest } from '../../models/requests/bootcamp/create-boo
 import { CreateBootcampResponse } from '../../models/responses/bootcamp/create-bootcamp-response';
 import { BootcampListItemDto } from '../../models/responses/bootcamp/bootcamp-list-item-dto';
 import { PageRequest } from '../../../core/models/page-request';
-import { environment } from '../../../../environments/enviroment.development';
+import { environment } from '../../../../environments/environment.development';
+import { GetlistBootcampStateResponse } from '../../models/responses/bootcampState/getlist-bootcamp-state-response';
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +20,13 @@ export class BootcampService extends BootcampBaseService {
   private readonly apiUrl:string = `${environment.API_URL}/bootcamp`
   constructor(private http: HttpClient) { super(); }
 
-  // getList(): Observable<GetlistBootcampResponse[]> {
-  //   return this.http.get<GetlistBootcampResponse[]>('API_URL/getList');
-  // }
-  getList(pageRequest:PageRequest): Observable<BootcampListItemDto[]> {
+  getList(pageRequest:PageRequest): Observable<BootcampListItemDto> {
     const newRequest :{[key:string]:string | number}={
       page:pageRequest.page,
       pageSize:pageRequest.pageSize
     };
 
-    return this.http.getClient<BootcampListItemDto>(this.apiUrl,{
+    return this.http.get<BootcampListItemDto>(this.apiUrl,{
       params:newRequest
     }).pipe(
       map((response)=>{
@@ -46,7 +44,6 @@ export class BootcampService extends BootcampBaseService {
     )
   }
 
-
   getById(id: string): Observable<GetbyidBootcampResponse> {
     return this.http.get<GetbyidBootcampResponse>('apiUrl/getById/' + id);
   }
@@ -62,4 +59,29 @@ export class BootcampService extends BootcampBaseService {
   create(applicant: CreateBootcampRequest): Observable<CreateBootcampResponse> {
     return this.http.post<CreateBootcampResponse>('apiUrl/create', applicant);
   }
-}
+
+override getListBootcampByInstructorId(pageRequest:PageRequest,instructorId: string): Observable<BootcampListItemDto> {
+  const newRequest :{[key:string]:string | number}={
+    page:pageRequest.page,
+    pageSize:pageRequest.pageSize,
+    instructorId:instructorId
+};
+
+return this.http.get<BootcampListItemDto>(`${this.apiUrl}/getbootcampbyinstructor`,{
+  params:newRequest
+}).pipe(
+  map((response)=>{
+    const newResponse:BootcampListItemDto={
+      index:pageRequest.page,
+      size:pageRequest.pageSize,
+      count:response.count,
+      hasNext:response.hasNext,
+      hasPrevious:response.hasPrevious,
+      items:response.items,
+      pages:response.pages
+    };
+    return newResponse; 
+  })
+)
+
+}}

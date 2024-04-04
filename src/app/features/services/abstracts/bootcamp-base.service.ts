@@ -9,14 +9,16 @@ import { CreateBootcampResponse } from '../../models/responses/bootcamp/create-b
 import { CreateBootcampRequest } from '../../models/requests/bootcamp/create-bootcamp-request';
 import { PageRequest } from '../../../core/models/page-request';
 import { BootcampListItemDto } from '../../models/responses/bootcamp/bootcamp-list-item-dto';
+import { GetlistBootcampStateResponse } from '../../models/responses/bootcampState/getlist-bootcamp-state-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export abstract class BootcampBaseService {
-  abstract getList(pageRequest:PageRequest): Observable<BootcampListItemDto[]>;
+  abstract getList(pageRequest:PageRequest): Observable<BootcampListItemDto>;
   abstract getById(id: string): Observable<GetbyidBootcampResponse>;
   abstract delete(id: string): Observable<DeleteBootcampResponse>;
   abstract update(applicant: UpdateBootcampRequest): Observable<UpdateBootcampResponse>;
   abstract create(applicant: CreateBootcampRequest): Observable<CreateBootcampResponse>;
+  abstract getListBootcampByInstructorId(pageRequest:PageRequest,instructorId: string):Observable<BootcampListItemDto>;
 }
