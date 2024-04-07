@@ -1,9 +1,10 @@
 export interface ApplicantForRegisterRequest{
     email:string;
     password:string;
+    userName:string;
     firstName:string;
     lastName:string;
-    about:string;
     dateOfBirth: Date;
     nationalIdentity:string;
+    about:string;
 }

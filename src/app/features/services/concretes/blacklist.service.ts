@@ -9,12 +9,13 @@ import { UpdateBlacklistResponse } from '../../models/responses/blacklist/update
 import { UpdateBlacklistRequest } from '../../models/requests/blacklist/update-blacklist-request';
 import { CreateBlacklistRequest } from '../../models/requests/blacklist/create-blacklist-request';
 import { CreateBlacklistResponse } from '../../models/responses/blacklist/create-blacklist-response';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlacklistService extends BlacklistBaseService {
-
+  private readonly apiUrl:string = `${environment.API_URL}/blacklists`
   constructor(private http: HttpClient) {
     super();
   }

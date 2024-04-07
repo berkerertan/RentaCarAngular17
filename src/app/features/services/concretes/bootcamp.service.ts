@@ -12,14 +12,18 @@ import { BootcampListItemDto } from '../../models/responses/bootcamp/bootcamp-li
 import { PageRequest } from '../../../core/models/page-request';
 import { environment } from '../../../../environments/environment.development';
 import { GetlistBootcampStateResponse } from '../../models/responses/bootcampState/getlist-bootcamp-state-response';
+import { GetlistBootcampResponse } from '../../models/responses/bootcamp/getlist-bootcamp-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BootcampService extends BootcampBaseService {
-  private readonly apiUrl:string = `${environment.API_URL}/bootcamp`
+  
+  private readonly apiUrl:string = `${environment.API_URL}/bootcamps`
   constructor(private http: HttpClient) { super(); }
 
+
+  
   getList(pageRequest:PageRequest): Observable<BootcampListItemDto> {
     const newRequest :{[key:string]:string | number}={
       page:pageRequest.page,
@@ -45,19 +49,19 @@ export class BootcampService extends BootcampBaseService {
   }
 
   getById(id: string): Observable<GetbyidBootcampResponse> {
-    return this.http.get<GetbyidBootcampResponse>('apiUrl/getById/' + id);
+    return this.http.get<GetbyidBootcampResponse>(`${this.apiUrl}/` + id);
   }
 
   delete(id: string): Observable<DeleteBootcampResponse> {
-    return this.http.delete<DeleteBootcampResponse>('apiUrl/delete/' + id);
+    return this.http.delete<DeleteBootcampResponse>(`${this.apiUrl}/` + id);
   }
 
   update(applicant: UpdateBootcampRequest): Observable<UpdateBootcampResponse> {
-    return this.http.put<UpdateBootcampResponse>('apiUrl/update', applicant);
+    return this.http.put<UpdateBootcampResponse>(`${this.apiUrl}/`, applicant);
   }
 
   create(applicant: CreateBootcampRequest): Observable<CreateBootcampResponse> {
-    return this.http.post<CreateBootcampResponse>('apiUrl/create', applicant);
+    return this.http.post<CreateBootcampResponse>(`${this.apiUrl}/`, applicant);
   }
 
 override getListBootcampByInstructorId(pageRequest:PageRequest,instructorId: string): Observable<BootcampListItemDto> {

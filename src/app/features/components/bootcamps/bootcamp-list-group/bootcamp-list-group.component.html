@@ -1,13 +1,12 @@
 <div class="row" style="margin-top: 10px;">
     <h3 *ngIf="!bootcampList">Eğitim Bulunamadı</h3>
  <div *ngFor="let bootcamp of bootcampList.items" class="card" style="width: 16rem;margin:20px;opacity: 0.8;">
- <img [src]="bootcamp.imagePath" class="card-img-top" alt="bootcamp adı Image" height="150px" />
+ <img [src]="bootcamp.BootcampImageImagePath" class="card-img-top" alt="bootcamp Image" height="150px" />
  <div class="bootcamp-body">
-    <p class="card-text">Marka:<strong>{{bootcamp.instructorFirstName}}</strong></p>
+    <p class="card-text">Eğitmen:<strong>{{bootcamp.name}}</strong></p>
  </div>
  <ul class="list-group list-group-flush">
-  <li class="list-group-item"><b>Eğitim İsmi:</b><span style="float:right;">{{bootcamp.name}}</span></li>
-  <li class="list-group-item"><b>Eğitmen:</b><span style="float:right;">{{bootcamp.instructorFirstName}}</span></li>
+  <li class="list-group-item"><b>Eğitmen:</b><span style="float:right;">{{bootcamp.instructorFirstName}} {{bootcamp.instructorLastName}}</span></li>
   <li class="list-group-item"><b>Bitiş Tarihi:</b><span style="float:right;">{{bootcamp.endDate}}</span></li>
  </ul>
 </div> 

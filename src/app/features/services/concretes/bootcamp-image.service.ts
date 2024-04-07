@@ -9,26 +9,27 @@ import { UpdateBootcampImageResponse } from '../../models/responses/bootcampImag
 import { CreateBootcampImageRequest } from '../../models/requests/bootcampImage/create-bootcamp-image-request';
 import { CreateBootcampImageResponse } from '../../models/responses/bootcampImage/create-bootcamp-image-response';
 import { BootcampImageBaseService } from '../abstracts/bootcamp-image-base.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BootcampImageService extends BootcampImageBaseService {
-
+  private readonly apiUrl:string = `${environment.API_URL}/BootcampImages`
   constructor(private http: HttpClient) {
     super();
   }
 
   getList(): Observable<GetlistBootcampImageResponse[]> {
-    return this.http.get<GetlistBootcampImageResponse[]>('API_URL/getList');
+    return this.http.get<GetlistBootcampImageResponse[]>(`${this.apiUrl}`);
   }
 
   getById(id: string): Observable<GetbyidBootcampImageResponse> {
-    return this.http.get<GetbyidBootcampImageResponse>('API_URL/getById/' + id);
+    return this.http.get<GetbyidBootcampImageResponse>(`${this.apiUrl}/` + id);
   }
 
   delete(id: string): Observable<DeleteBootcampImageResponse> {
-    return this.http.delete<DeleteBootcampImageResponse>('API_URL/delete/' + id);
+    return this.http.delete<DeleteBootcampImageResponse>(`${this.apiUrl}/` + id);
   }
 
   update(applicant: UpdateBootcampImageRequest): Observable<UpdateBootcampImageResponse> {

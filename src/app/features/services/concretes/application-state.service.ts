@@ -9,33 +9,34 @@ import { UpdateApplicationStateRequest } from '../../models/requests/application
 import { UpdateApplicationStateResponse } from '../../models/responses/applicationState/update-application-state-response';
 import { CreateApplicationStateRequest } from '../../models/requests/applicationState/create-application-state-request';
 import { CreateApplicationStateResponse } from '../../models/responses/applicationState/create-application-state-response';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicationStateService extends ApplicationStateBaseService {
-
+  private readonly apiUrl:string = `${environment.API_URL}/applicationstates`
   constructor(private http: HttpClient) {
     super();
   }
 
   getList(): Observable<GetlistApplicationStateResponse[]> {
-    return this.http.get<GetlistApplicationStateResponse[]>('API_URL/getList');
+    return this.http.get<GetlistApplicationStateResponse[]>(`${this.apiUrl}`);
   }
 
   getById(id: string): Observable<GetbyidApplicationStateResponse> {
-    return this.http.get<GetbyidApplicationStateResponse>('API_URL/getById/' + id);
+    return this.http.get<GetbyidApplicationStateResponse>(`${this.apiUrl}/` + id);
   }
 
   delete(id: string): Observable<DeleteApplicationStateResponse> {
-    return this.http.delete<DeleteApplicationStateResponse>('API_URL/delete/' + id);
+    return this.http.delete<DeleteApplicationStateResponse>(`${this.apiUrl}/` + id);
   }
 
   update(applicant: UpdateApplicationStateRequest): Observable<UpdateApplicationStateResponse> {
-    return this.http.put<UpdateApplicationStateResponse>('API_URL/update', applicant);
+    return this.http.put<UpdateApplicationStateResponse>(`${this.apiUrl}/`, applicant);
   }
 
   create(applicant: CreateApplicationStateRequest): Observable<CreateApplicationStateResponse> {
-    return this.http.post<CreateApplicationStateResponse>('API_URL/create', applicant);
+    return this.http.post<CreateApplicationStateResponse>(`${this.apiUrl}/`, applicant);
   }
 }

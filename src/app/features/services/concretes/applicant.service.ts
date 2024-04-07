@@ -7,32 +7,31 @@ import { GetbyidApplicantResponse } from '../../models/responses/applicant/getby
 import { DeleteApplicantResponse } from '../../models/responses/applicant/delete-applicant-response';
 import { UpdateApplicantRequest } from '../../models/requests/applicant/update-applicant-request';
 import { UpdateApplicantResponse } from '../../models/responses/applicant/update-applicant-response';
-import { CreateApplicantResponse } from '../../models/responses/applicant/create-applicant-response';
-import { CreateApplicantRequest } from '../../models/requests/applicant/create-applicant-request';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicantService extends ApplicantBaseService {
-  apiUrl="http://localhost"
+  private readonly apiUrl:string = `${environment.API_URL}/applicants`
   constructor(private http: HttpClient) {
     super();
   }
 
   getList(): Observable<GetlistApplicantResponse[]> {
-    return this.http.get<GetlistApplicantResponse[]>(this.apiUrl);
+    return this.http.get<GetlistApplicantResponse[]>(`${this.apiUrl}`);
   }
 
   getById(id: string): Observable<GetbyidApplicantResponse> {
-    return this.http.get<GetbyidApplicantResponse>(this.apiUrl + id);
+    return this.http.get<GetbyidApplicantResponse>(`${this.apiUrl}/` + id);
   }
 
   delete(id: string): Observable<DeleteApplicantResponse> {
-    return this.http.delete<DeleteApplicantResponse>(this.apiUrl + id);
+    return this.http.delete<DeleteApplicantResponse>(`${this.apiUrl}/` + id);
   }
 
   update(applicant: UpdateApplicantRequest): Observable<UpdateApplicantResponse> {
-    return this.http.put<UpdateApplicantResponse>(this.apiUrl, applicant);
+    return this.http.put<UpdateApplicantResponse>(`${this.apiUrl}/`, applicant);
   }
 
   // create(applicant: CreateApplicantRequest): Observable<CreateApplicantResponse> {

@@ -1,3 +1,3 @@
 export const environment = {
-    API_URL:'http://localhost:60805/api/bootcamp/4'
+    API_URL:'http://localhost:60805/api'
 };

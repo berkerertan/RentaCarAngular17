@@ -27,8 +27,8 @@ export class AuthService extends AuthBaseService {
         super();
     }
 
-    override register(ApplicantForRegisterRequest: ApplicantForRegisterRequest): Observable<ApplicantForRegisterResponse> {
-        return this.http.post<ApplicantForRegisterResponse>(`${this.apiUrl}/register`,ApplicantForRegisterRequest)
+    register(applicantForRegisterRequest: ApplicantForRegisterRequest): Observable<ApplicantForRegisterResponse> {
+        return this.http.post<ApplicantForRegisterResponse>(`${this.apiUrl}/RegisterApplicant`,applicantForRegisterRequest)
     }
 
     login(applicantLoginRequest:ApplicantForLoginRequest)

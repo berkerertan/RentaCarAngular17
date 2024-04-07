@@ -15,29 +15,29 @@ import { environment } from '../../../../environments/environment.development';
   providedIn: 'root'
 })
 export class BootcampStateService extends BootcampStateBaseService {
-  private readonly apiUrl:string = `${environment.API_URL}/bootcampState`
+  private readonly apiUrl:string = `${environment.API_URL}/bootcampStates`
   constructor(private http: HttpClient) {
     super();
   }
 
   getList(): Observable<GetlistBootcampStateResponse[]> {
-    return this.http.get<GetlistBootcampStateResponse[]>('API_URL/getList');
+    return this.http.get<GetlistBootcampStateResponse[]>(`${this.apiUrl}`);
   }
 
   getById(id: string): Observable<GetbyidBootcampStateResponse> {
-    return this.http.get<GetbyidBootcampStateResponse>('API_URL/getById/' + id);
+    return this.http.get<GetbyidBootcampStateResponse>(`${this.apiUrl}/` + id);
   }
 
   delete(id: string): Observable<DeleteBootcampStateResponse> {
-    return this.http.delete<DeleteBootcampStateResponse>('API_URL/delete/' + id);
+    return this.http.delete<DeleteBootcampStateResponse>(`${this.apiUrl}/` + id);
   }
 
   update(applicant: UpdateBootcampStateRequest): Observable<UpdateBootcampStateResponse> {
-    return this.http.put<UpdateBootcampStateResponse>('API_URL/update', applicant);
+    return this.http.put<UpdateBootcampStateResponse>(`${this.apiUrl}/`, applicant);
   }
 
   create(applicant: CreateBootcampStateRequest): Observable<CreateBootcampStateResponse> {
-    return this.http.post<CreateBootcampStateResponse>('API_URL/create', applicant);
+    return this.http.post<CreateBootcampStateResponse>(`${this.apiUrl}/`, applicant);
   }
 
   

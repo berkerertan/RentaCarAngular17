@@ -27,7 +27,7 @@ export class InstructorListGroupComponent implements OnInit {
   constructor(private instructorService: InstructorService) {}
 
   ngOnInit(): void {
-    this.getInstructor();
+    this.getInstructors();
     console.log(this.instructorSelected)
   }
 
@@ -36,9 +36,9 @@ export class InstructorListGroupComponent implements OnInit {
     this.instructorSelected.emit(this.selectedInstructorId);
   }
 
-  getInstructor(){
+  getInstructors(){
     this.instructorService.getList().subscribe((response)=>{
-     this.instructors=response;
+     this.instructors=Object.values(response);;
     })
  }
   setCurrentInstructor(instructor: GetlistInstructorResponse){

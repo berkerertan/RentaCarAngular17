@@ -9,30 +9,31 @@ import { UpdateInstructorResponse } from '../../models/responses/instructor/upda
 import { CreateInstructorRequest } from '../../models/requests/instructor/create-instructor-request';
 import { CreateInstructorResponse } from '../../models/responses/instructor/create-instructor-response';
 import { InstructorBaseService } from '../abstracts/instructor-base.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InstructorService extends InstructorBaseService {
-
+  private readonly apiUrl:string = `${environment.API_URL}/instructors`
   constructor(private http: HttpClient) {
     super();
   }
 
   getList(): Observable<GetlistInstructorResponse[]> {
-    return this.http.get<GetlistInstructorResponse[]>('API_URL/getList');
+    return this.http.get<GetlistInstructorResponse[]>(`${this.apiUrl}/` + 'getlistall');
   }
 
   getById(id: string): Observable<GetbyidInstructorResponse> {
-    return this.http.get<GetbyidInstructorResponse>('API_URL/getById/' + id);
+    return this.http.get<GetbyidInstructorResponse>(`${this.apiUrl}/` + id);
   }
 
   delete(id: string): Observable<DeleteInstructorResponse> {
-    return this.http.delete<DeleteInstructorResponse>('API_URL/delete/' + id);
+    return this.http.delete<DeleteInstructorResponse>(`${this.apiUrl}/` + id);
   }
 
   update(applicant: UpdateInstructorRequest): Observable<UpdateInstructorResponse> {
-    return this.http.put<UpdateInstructorResponse>('API_URL/update', applicant);
+    return this.http.put<UpdateInstructorResponse>(`${this.apiUrl}/`, applicant);
   }
 
   // create(applicant: CreateInstructorRequest): Observable<CreateInstructorResponse> {

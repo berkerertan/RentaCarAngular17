@@ -7,5 +7,5 @@ export interface GetlistBootcampResponse {
     bootcampstateName:number;
     startDate:Date;
     endDate:Date;
-    imagePath:string;
+    BootcampImageImagePath:string;
 }

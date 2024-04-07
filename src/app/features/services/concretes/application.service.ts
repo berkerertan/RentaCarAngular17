@@ -9,33 +9,34 @@ import { UpdateApplicationInfoRequest } from '../../models/requests/application/
 import { UpdateApplicationInfoResponse } from '../../models/responses/applicationInfo/update-application-info-response';
 import { CreateApplicationInfoResponse } from '../../models/responses/applicationInfo/create-application-info-response';
 import { CreateApplicationInfoRequest } from '../../models/requests/application/create-application-info-request';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicationService extends ApplicationBaseService {
-
+  private readonly apiUrl:string = `${environment.API_URL}/applications`
   constructor(private http: HttpClient) {
     super();
   }
 
   getList(): Observable<GetlistApplicationInfoResponse[]> {
-    return this.http.get<GetlistApplicationInfoResponse[]>('API_URL/getList');
+    return this.http.get<GetlistApplicationInfoResponse[]>(`${this.apiUrl}`);
   }
 
   getById(id: string): Observable<GetbyidApplicationInfoResponse> {
-    return this.http.get<GetbyidApplicationInfoResponse>('API_URL/getById/' + id);
+    return this.http.get<GetbyidApplicationInfoResponse>(`${this.apiUrl}/` + id);
   }
 
   delete(id: string): Observable<DeleteApplicationInfoResponse> {
-    return this.http.delete<DeleteApplicationInfoResponse>('API_URL/delete/' + id);
+    return this.http.delete<DeleteApplicationInfoResponse>(`${this.apiUrl}/` + id);
   }
 
   update(applicant: UpdateApplicationInfoRequest): Observable<UpdateApplicationInfoResponse> {
-    return this.http.put<UpdateApplicationInfoResponse>('API_URL/update', applicant);
+    return this.http.put<UpdateApplicationInfoResponse>(`${this.apiUrl}/`, applicant);
   }
 
   create(applicant: CreateApplicationInfoRequest): Observable<CreateApplicationInfoResponse> {
-    return this.http.post<CreateApplicationInfoResponse>('API_URL/create', applicant);
+    return this.http.post<CreateApplicationInfoResponse>(`${this.apiUrl}/`, applicant);
   }
 }

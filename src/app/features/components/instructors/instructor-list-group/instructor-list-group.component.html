@@ -1,50 +1,20 @@
-<div style="margin-top: 10px" class="mb-3">
-  <input
-    type="text"
-    [(ngModel)]="filterText"
-    class="form-control"
-    id="filterText"
-    placeholder="Eğitmen Ara"
-  />
+<div style="margin-top: 10px;" class="mb-3">
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Eğitmen Ara">
 </div>
-<div *ngIf="filterText" class="alert alert-success" style="opacity: 0.8">
-  {{ filterText }} aradınız.
+<div *ngIf="filterText" class="alert alert-success" style="opacity: 0.8;">
+{{filterText}} aradınız.
 </div>
 
-<ul class="list-group" style="opacity: 0.8">
-  <li routerLink="/home-page" [class]="getDefaultInstructorClass()">
-    Eğitmenler
-  </li>
+<ul class="list-group" style="opacity: 0.8;">
+  <li routerLink="/home-page" [class]="getDefaultInstructorClass()">Eğitmenler</li>
 </ul>
-<div class="mb-3" style="opacity: 0.8">
+<div class="mb-3" style="opacity: 0.8;">
   <select class="form-select" size="5" aria-label="size 3 select example">
-    <option
-      style="background-color: rgb(252, 251, 245)"
-      (click)="onSelectedInstructor(instructor.id)"
+      <option style="background-color: rgb(252,251,245);" (click)="onSelectedInstructor(instructor.id)"
       [ngClass]="{
-        active: selectedInstructorId === instructor.id
+          active:selectedInstructorId===instructor.id
       }"
       [class]="getCurrentInstructorClass(instructor)"
-      *ngFor="let instructor of instructors | filterInstructorPipe : filterText"
-      value="1"
-    >
-      {{ instructor.firstName }}
-    </option>
+      *ngFor="let instructor of instructors | filterInstructorPipe:filterText" value="1">{{instructor.firstName}} {{instructor.lastName}}</option>
   </select>
 </div>
-<!-- 
-<select class="form-select" size="5" aria-label="size 3 select example">
-  <ng-container
-    *ngFor="let instructor of instructors | filterInstructorPipe : filterText"
-  >
-    <option
-      style="background-color: rgb(252, 251, 245)"
-      (click)="onSelectedInstructor(instructor.id)"
-      [class.active]="selectedInstructorId === instructor.id"
-      [class]="getCurrentInstructorClass(instructor)"
-      value="1"
-    >
-      {{ instructor.name }}
-    </option>
-  </ng-container>
-</select> -->

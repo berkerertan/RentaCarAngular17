@@ -49,23 +49,26 @@ async getMenuItems(){
     }, 
     
     {
-      label:"Kurslar",icon:"pi pi-car",routerLink:'rent-car'
+      label:"Kurslar",icon:"pi-book",routerLink:'bootcamp-list'
     },
     {
       label:this.getUserName(),icon:"pi pi-user",routerLink:'profil'
     },
     {
-      label:"Çıkış Yap",icon:"pi pi-sign-out",routerLink:''
-    }
-  
+      label:"Çıkış Yap",icon:"pi pi-sign-out",command:()=>this.logOut()
+    },
+    {
+      label:await this.getUserName(),icon:"pi pi-user",routerLink:'profil'
+    },
   ]}
+
   else{
     this.menuItems=[
       {
         label:"AnaSayfa",icon:"pi pi-home",routerLink:'home-page'
       },
       {
-        label:"Kurslar",icon:"pi pi-car",routerLink:'car-list'
+        label:"Kurslar",icon:"pi-book"
       },
       {
         label:"Giriş Yap",icon:"pi pi-sign-in",routerLink:'login'
