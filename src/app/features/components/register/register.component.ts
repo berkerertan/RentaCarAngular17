@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,ReactiveFormsModule,Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/concretes/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,10 @@ import { AuthService } from '../../services/concretes/auth.service';
 export class RegisterComponent implements OnInit {
 
   registerForm!:FormGroup
-  constructor(private formBuilder:FormBuilder,private authService:AuthService,private router:Router){}
+  constructor(private formBuilder:FormBuilder,
+    private authService:AuthService,
+    private router:Router,
+    private toastr:ToastrService){}
 
   ngOnInit(): void {
     this.createRegisterForm();
@@ -38,7 +42,7 @@ export class RegisterComponent implements OnInit {
       let registerModel = Object.assign({}, this.registerForm.value);
       this.authService.register(registerModel).subscribe(
         (response) => {
-          alert("Kayıt Başarılı");
+          this.toastr.success("Kayıt Başarılı");
           this.router.navigate(['login']);
         },
         (errorResponse: any) => {
@@ -47,7 +51,7 @@ export class RegisterComponent implements OnInit {
               console.error(`Property: ${error.Property}`);
               if (error.Errors) {
                 error.Errors.forEach((errorMessage: string) => {
-                  alert(`Error: ${errorMessage}`);
+                  this.toastr.error(`Error: ${errorMessage}`);
                 });
               }
             });

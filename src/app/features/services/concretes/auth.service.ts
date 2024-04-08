@@ -10,6 +10,7 @@ import { LocalStorageService } from "./local-storage.service";
 import { AccessTokenModel } from "../../models/responses/login_register/access-token-model";
 import { TokenModel } from "../../models/responses/login_register/token-model";
 import { ApplicantForLoginRequest } from "../../models/requests/login_register/applicant-for-login-request";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable({
     providedIn:'root'
@@ -23,7 +24,9 @@ export class AuthService extends AuthBaseService {
 
     private readonly apiUrl:string =`${environment.API_URL}/auth`
 
-    constructor(private http: HttpClient,private storageService:LocalStorageService) {
+    constructor(private http: HttpClient,
+                private storageService:LocalStorageService,
+                private toastr: ToastrService) {
         super();
     }
 
@@ -38,7 +41,7 @@ export class AuthService extends AuthBaseService {
     return this.http.post<AccessTokenModel<TokenModel>>(`${this.apiUrl}/login`,applicantLoginRequest)
     .pipe(map(response=>{
         this.storageService.setToken(response.accessToken.token);
-        alert("Giriş yapıldı");
+        this.toastr.success('Giriş yapıldı');
         setTimeout(()=>{
           location.reload
         },400)
@@ -46,7 +49,7 @@ export class AuthService extends AuthBaseService {
       }
      
     ),catchError(responseError=>{
-      alert(responseError.error)
+      this.toastr.error(responseError.error)
       throw responseError;
     })
     )
@@ -87,7 +90,7 @@ export class AuthService extends AuthBaseService {
 }
     logOut(){
     this.storageService.removeToken();
-    alert("Çıkış yapıldı");
+    this.toastr.success('Çıkış Yapıldı');
     setTimeout(function(){
       location.reload()
     },400)

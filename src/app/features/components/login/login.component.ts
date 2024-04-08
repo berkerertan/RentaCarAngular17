@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup,ReactiveFormsModule, Validators } from '@angular
 import { AuthService } from '../../services/concretes/auth.service';
 import { Router } from '@angular/router';
 import { ApplicantForLoginRequest } from '../../models/requests/login_register/applicant-for-login-request';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,10 @@ import { ApplicantForLoginRequest } from '../../models/requests/login_register/a
 export class LoginComponent implements OnInit {
 
   loginForm!:FormGroup
-  constructor(private formBuilder:FormBuilder,private authService:AuthService,private router:Router){}
+  constructor(private formBuilder:FormBuilder,
+    private authService:AuthService,
+    private router:Router,
+    private toastr:ToastrService){}
 
   ngOnInit(): void {
     this.createLoginForm();
@@ -31,11 +35,11 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid){
       let loginModel:ApplicantForLoginRequest = Object.assign({},this.loginForm.value);
       this.authService.login(loginModel).subscribe(response=>{
-        alert(response.accessToken.expiration);
+        this.toastr.info('Token Süresi: ' + response.accessToken.expiration);
         this.router.navigate(['home-page'])
       }
       ,(error:any)=>{
-        alert(error.error)
+        this.toastr.error(error.error)
       })
     }
   }
