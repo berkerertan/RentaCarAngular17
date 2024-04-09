@@ -4,6 +4,8 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { BootcampListGroupComponent } from './features/components/bootcamps/bootcamp-list-group/bootcamp-list-group.component';
 import { RegisterComponent } from './features/components/register/register.component';
 import { BootcampListPageComponent } from './pages/bootcamp-list-page/bootcamp-list-page.component';
+import { AdminComponent } from './pages/admin/admin/admin.component';
+import { LoginGuard } from './core/guards/login.guard';
 
 
 export const routes: Routes = [
@@ -15,6 +17,7 @@ export const routes: Routes = [
    ]},
    {path:'register',component:RegisterComponent},
    {path:'login',component:LoginComponent},
-   {path:'bootcamp-list',component:BootcampListPageComponent},
+   {path:'bootcamp-list',component:BootcampListPageComponent,canActivate:[LoginGuard]},
+   {path:'admin',component:AdminComponent}
 
 ];
