@@ -1,6 +1,6 @@
 import { Injectable,model } from '@angular/core';
 import { BootcampBaseService } from '../abstracts/bootcamp-base.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable,map } from 'rxjs';
 import { GetbyidBootcampResponse } from '../../models/responses/bootcamp/getbyid-bootcamp-response';
 import { DeleteBootcampResponse } from '../../models/responses/bootcamp/delete-bootcamp-response';
@@ -29,9 +29,15 @@ export class BootcampService extends BootcampBaseService {
       page:pageRequest.page,
       pageSize:pageRequest.pageSize
     };
+    const headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization':`Bearer ${localStorage.getItem('token')}`
+    })
+
 
     return this.http.get<BootcampListItemDto>(this.apiUrl,{
-      params:newRequest
+      params:newRequest,
+      headers:headers
     }).pipe(
       map((response)=>{
         const newResponse:BootcampListItemDto={

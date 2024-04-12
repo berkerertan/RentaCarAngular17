@@ -20,6 +20,7 @@ export class NavbarComponent {
      this.getMenuItems();
      console.log(this.getUserName());
      console.log(this.getUserId());
+     console.log(this.authService.getRoles())
 }
 
 logOut(){
@@ -42,7 +43,8 @@ getUserId():string{
 
 
 async getMenuItems(){
-  if(this.authService.loggedIn()==true){
+  const isLoggedIn = await this.authService.loggedIn();
+    if(isLoggedIn){
   this.menuItems=[
     {
       label:"AnaSayfa",icon:"pi pi-home",routerLink:'home-page'
@@ -78,6 +80,14 @@ async getMenuItems(){
       }
     ]
   }
+  if(this.authService.isAdmin()){
+    this.menuItems.push(
+    {
+      label:"Admin Panel",routerLink:'admin'
+    },
+  )
+  }
  }
+ 
 
 }
