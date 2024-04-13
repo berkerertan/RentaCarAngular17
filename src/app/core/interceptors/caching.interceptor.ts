@@ -1,7 +1,7 @@
 // Sunucudan gelen verileri önbelleğe almak için kullanılır. 
 // Bu sayede, aynı istek tekrarlandığında sunucuya gitmek 
 // yerine önbellekten veriler alınır, böylece performans artırılır.
-
+// !!!!!!!!!!! Client-Side Caching !!!!!!!!!!!!
 
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
